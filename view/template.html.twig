@@ -2,8 +2,21 @@
 {% block stylesheet %}
     <link href="../dist/tailwind.min.css" rel="stylesheet">
 {% endblock %}
-{% block bodyClass %}h-screen bg-amber-50{% endblock %}
-
+{% block title %}English{% endblock %}
+{% block bodyClass %}h-screen bg-gray-100{% endblock %}
+{% block navBar %}
+    <header class="bg-blue-500">
+        <nav class="container mx-auto p-6">
+            <div class="flex items-center justify-between text-white font-bold text-xl">
+                <a href="?route={{ userRole ? "general" : "home" }}">CF2M - ENGLISH</a>
+                <div class="flex items-center gap-x-12">
+                <a href="?route=connectUser">Sign In</a>
+                <a href="?route=createUser">Sign Up</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+{% endblock %}
 {% block javascript %}
 <script src="{{ PUB_DIR }}scripts/tableSorter.js"></script>
 {% endblock %}
