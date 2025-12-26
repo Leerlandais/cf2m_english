@@ -32,4 +32,11 @@ class ConnectionController extends Abstract\AbstractController
     {
         echo $this->twig->render('public/public.index.html.twig');
     }
+
+    public function create($getParams) : void
+    {
+        global $sessionRole, $systemMessage;
+
+        echo $this->twig->render('public/public.createUser.html.twig');
+    }
 }
