@@ -1,5 +1,133 @@
 {% extends "template.html.twig" %}
 
 {% block sectionOne %}
-Create User
+    <div class="mb-5">
+        <div class="container mx-auto max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl shadow-md dark:shadow-white px-6 sm:px-10 bg-white dark:bg-gray-800 border-emerald-500 rounded-md">
+            <div>
+                <h1 class="text-center text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                    Create Student
+                </h1>
+                <form action="" method="POST" id="createUserForm">
+                    <label>
+                        <input type="text" class="hidden" name="csrf_token" value="{{ csrfToken }}">
+                    </label>
+                    <div class="my-2">
+                        <label for="createName"
+                               class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">
+                            Name
+                        </label>
+                        <input type="text"
+                               name="createName"
+                               class="block w-full border border-emerald-500 outline-emerald-800 px-2 py-2 text-sm sm:text-md rounded-md my-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                               id="createName"
+                               {% if(logDetails) %}value="{{ logDetails.getStudentLastName }}"{% endif %}
+                               autofocus
+                               required>
+                    </div>
+
+                    <div class="my-2">
+                        <label for="createFirstName"
+                               class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">
+                            First Name
+                        </label>
+                        <input type="text"
+                               name="createFirstName"
+                               class="block w-full border
+                           border-emerald-500
+                           outline-emerald-800
+                           px-2 py-2 text-sm sm:text-md
+                           rounded-md my-2 bg-white
+                           dark:bg-gray-700
+                           text-gray-900
+                           dark:text-white"
+                               id="createFirstName"
+                               {% if(logDetails) %}value="{{ logDetails.getStudentFirstName }}"{% endif %}
+                               required>
+                    </div>
+                    <div class="my-2">
+                        <label for="createUsername"
+                               class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">
+                            Username
+                        </label>
+                        <input type="text"
+                               name="createUsername"
+                               class="block w-full border border-emerald-500 outline-emerald-800 px-2 py-2 text-sm sm:text-md rounded-md my-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                               id="createUsername"
+                                {% if alreadyKnown != "name" %}
+                                    value="{{ logDetails.getStudentUsername }}"
+                                {% endif %}
+                               required>
+                    </div>
+                    <div class="my-2">
+                        <label for="createEmail"
+                               class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">
+                            Email
+                        </label>
+                        <input type="email"
+                               name="createEmail"
+                               class="block w-full border border-emerald-500 outline-emerald-800 px-2 py-2 text-sm sm:text-md rounded-md my-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                               id="createEmail"
+                                {% if alreadyKnown != "mail" %}
+                                    value="{{ logDetails.getStudentEmail }}"
+                                {% endif %}
+                               required>
+                    </div>
+                    <div class="my-2">
+                        <label for="createPassword"
+                               class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">
+                            Password
+                        </label>
+                        <input type="password"
+                               name="createPassword"
+                               class="block w-full border border-emerald-500 outline-emerald-800 px-2 py-2 text-sm sm:text-md rounded-md my-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                               id="createPassword"
+                               required>
+                    </div>
+                    <div class="my-2">
+                        <label for="passCheck"
+                               class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">
+                            Verify Password
+                        </label>
+                        <input type="password"
+                               name="passCheck"
+                               class="block w-full border border-emerald-500 outline-emerald-800 px-2 py-2 text-sm sm:text-md rounded-md my-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                               id="passCheck"
+                               required>
+                    </div>
+                    <div class="my-2">
+                        <label for="createClass"
+                               class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">
+                            Class
+                        </label>
+                        <select name="createClass"
+                                class="block w-full border border-emerald-500
+                           outline-emerald-800 px-2 py-2 text-sm sm:text-md
+                           rounded-md my-2 bg-white dark:bg-gray-700
+                           text-gray-900 dark:text-white"
+                                id="createClass"
+                                required>
+                            <option value="" disabled hidden {% if logDetails == NULL %}selected{% endif %}>
+                                Select your Class
+                            </option>
+                            {% for course in courseChoice %}
+                                <option value="{{ course.course_id }}"
+                                        {% if logDetails and logDetails.getStudentCourse == course["course_id"] %}selected{% endif %}>
+                                    {{ course.course_name }}
+                                </option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+                    <div class="flex justify-center">
+                        <button class="px-4 py-1 bg-blue-500 rounded-md
+                            text-white text-sm sm:text-lg shadow-md mb-4"
+                                name="createNewUser"
+                                type="submit">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
