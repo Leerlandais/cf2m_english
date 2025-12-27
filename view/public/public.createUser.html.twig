@@ -89,6 +89,7 @@
                             Verify Password
                         </label>
                         <input type="password"
+                               name="unset:user_password"
                                class="block w-full border border-emerald-500 outline-emerald-800 px-2 py-2 text-sm sm:text-md rounded-md my-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                id="passCheck"
                                required>
@@ -98,6 +99,7 @@
                                class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">
                             Class
                         </label>
+                        {#
                         <select name="int:user_course"
                                 class="block w-full border border-emerald-500
                            outline-emerald-800 px-2 py-2 text-sm sm:text-md
@@ -116,11 +118,12 @@
                             {% endfor %}
 
                         </select>
+                        #}
                     </div>
                     <div class="flex justify-center">
                         <button class="px-4 py-1 bg-blue-500 rounded-md
                             text-white text-sm sm:text-lg shadow-md mb-4"
-                                name="createNewUser"
+                                name="unset:createNewUser"
                                 type="submit">
                             Save
                         </button>

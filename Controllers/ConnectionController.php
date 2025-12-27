@@ -36,7 +36,26 @@ class ConnectionController extends Abstract\AbstractController
     public function create($getParams) : void
     {
         global $sessionRole, $systemMessage;
+        if(isset($_POST["unset:createNewUser"])) {
+            if($this->checkPasswordMatch($_POST)) {
+                $_SESSION["systemMessage"] = "Passwords do not match. Please try again.";
+                header("Location: ?route=createUser");
+            }
+            else {
+                die("OK");
+            }
+        }
+        echo $this->twig->render('public/public.createUser.html.twig', [
+            "systemMessage" => $systemMessage,
+            "sessionRole" => $sessionRole,
+            "csrfToken" => $this->csrfToken,
+        ]);
+    }
 
-        echo $this->twig->render('public/public.createUser.html.twig');
+    private function checkPasswordMatch(array $postDetails) : bool
+    {
+        if(!isset($postDetails["pass:user_password"]) || !isset($postDetails["unset:user_password"])) return false;
+        if($postDetails["pass:user_password"] !== $postDetails["unset:user_password"]) return false;
+        return true;
     }
 }
