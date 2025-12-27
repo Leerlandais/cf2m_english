@@ -1,11 +1,13 @@
 <?php
 session_start();
+/*
 if (isset($_SESSION["activity"]) && time() - $_SESSION["activity"] > 1800) {
     session_unset();
     session_destroy();
     header("location: ./");
     exit();
 }
+*/
 $_SESSION["activity"] = time();
 if (isset($_SESSION["systemMessage"])) {
     $systemMessage = $_SESSION["systemMessage"];
