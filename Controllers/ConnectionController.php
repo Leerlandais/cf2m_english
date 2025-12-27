@@ -37,12 +37,13 @@ class ConnectionController extends Abstract\AbstractController
     {
         global $sessionRole, $systemMessage;
         if(isset($_POST["unset:createNewUser"])) {
-            if($this->checkPasswordMatch($_POST)) {
+            if(!$this->checkPasswordMatch($_POST)) {
                 $_SESSION["systemMessage"] = "Passwords do not match. Please try again.";
                 header("Location: ?route=createUser");
             }
             else {
-                die("OK");
+                $preparedData = $this->preparePostData($_POST);
+                die(var_dump($preparedData));
             }
         }
         echo $this->twig->render('public/public.createUser.html.twig', [
@@ -54,8 +55,9 @@ class ConnectionController extends Abstract\AbstractController
 
     private function checkPasswordMatch(array $postDetails) : bool
     {
-        if(!isset($postDetails["pass:user_password"]) || !isset($postDetails["unset:user_password"])) return false;
-        if($postDetails["pass:user_password"] !== $postDetails["unset:user_password"]) return false;
+     //   die(var_dump($postDetails));
+        if(!isset($postDetails["pass:user_password"]) || !isset($postDetails["unset:user_password"])) die("This");
+        if($postDetails["pass:user_password"] !== $postDetails["unset:user_password"]) die("That");
         return true;
     }
 }
