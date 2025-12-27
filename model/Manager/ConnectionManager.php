@@ -17,5 +17,10 @@ class ConnectionManager extends AbstractManager
         }
         session_destroy();
     }
+
+    public function createUser(array $userData) : void
+    {
+        die(var_dump($userData));
+    }
     
 }

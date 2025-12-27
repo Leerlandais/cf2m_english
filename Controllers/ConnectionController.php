@@ -40,10 +40,14 @@ class ConnectionController extends Abstract\AbstractController
             if(!$this->checkPasswordMatch($_POST)) {
                 $_SESSION["systemMessage"] = "Passwords do not match. Please try again.";
                 header("Location: ?route=createUser");
+                exit();
             }
             else {
                 $preparedData = $this->preparePostData($_POST);
-                die(var_dump($preparedData));
+                $createUser = $this->connectionManager->createUser($preparedData);
+                $systemMessage = $createUser ? "User created successfully" : "An error occurred while creating the user";
+                header("Location: ?route=home");
+                exit();
             }
         }
         echo $this->twig->render('public/public.createUser.html.twig', [
