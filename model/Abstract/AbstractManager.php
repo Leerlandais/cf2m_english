@@ -51,4 +51,15 @@ abstract class AbstractManager
 
         return $results ?: false;
     }
+
+    protected function changeInputName(array $datas): array
+    {
+        $newDatas = [];
+
+        foreach ($datas as $key => $value) {
+            $newDatas['english_' . $key] = $value;
+        }
+
+        return $newDatas;
+    }
 }

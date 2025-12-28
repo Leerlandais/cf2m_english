@@ -21,6 +21,7 @@ class ConnectionController extends Abstract\AbstractController
         parent::__construct($twig, $managerFactory);
         $this->connectionManager = $this->getManager(ConnectionManager::class);
     }
+
     public function logout()
     {
         $this->connectionManager->logoutUser();
@@ -28,31 +29,38 @@ class ConnectionController extends Abstract\AbstractController
         exit;
     }
 
-    public function index() : void
+    public function index(): void
     {
         echo $this->twig->render('public/public.index.html.twig');
     }
 
-    public function connectUser(array $getParams) : void
+    public function connectUser(array $getParams): void
     {
         global $sessionRole, $systemMessage;
-
+        if (isset($_POST["unset:loginUser"])) {
+            $preparedData = $this->preparePostData($_POST);
+            $attemptLogin = $this->connectionManager->attemptLogin($preparedData);
+            if (!$attemptLogin) {
+                $systemMessage = "Incorrect username or password";
+            }
+            header("Location: ?route=home");
+            exit();
+        }
         echo $this->twig->render('public/public.login.html.twig', [
             "systemMessage" => $systemMessage,
             "csrfToken" => $this->csrfToken,
         ]);
     }
 
-    public function create($getParams) : void
+    public function create($getParams): void
     {
         global $sessionRole, $systemMessage;
-        if(isset($_POST["unset:createNewUser"])) {
-            if(!$this->checkPasswordMatch($_POST)) {
+        if (isset($_POST["unset:createNewUser"])) {
+            if (!$this->checkPasswordMatch($_POST)) {
                 $_SESSION["systemMessage"] = "Passwords do not match. Please try again.";
                 header("Location: ?route=createUser");
                 exit();
-            }
-            else {
+            } else {
                 $preparedData = $this->preparePostData($_POST);
                 $createUser = $this->connectionManager->createUser($preparedData);
                 $systemMessage = $createUser ? "User created successfully" : "An error occurred while creating the user";
@@ -67,11 +75,11 @@ class ConnectionController extends Abstract\AbstractController
         ]);
     }
 
-    private function checkPasswordMatch(array $postDetails) : bool
+    private function checkPasswordMatch(array $postDetails): bool
     {
-     //   die(var_dump($postDetails));
-        if(!isset($postDetails["pass:user_password"]) || !isset($postDetails["unset:user_password"])) die("This");
-        if($postDetails["pass:user_password"] !== $postDetails["unset:user_password"]) die("That");
+        //   die(var_dump($postDetails));
+        if (!isset($postDetails["pass:user_password"]) || !isset($postDetails["unset:user_password"])) die("This");
+        if ($postDetails["pass:user_password"] !== $postDetails["unset:user_password"]) die("That");
         return true;
     }
 }

@@ -18,6 +18,11 @@ class ConnectionManager extends AbstractManager
         session_destroy();
     }
 
+    public function attemptLogin(array $loginData) : bool
+    {
+        $data = $this->changeInputName($loginData);
+        die(var_dump($data));
+    }
     public function createUser(array $userData) : void
     {
         die(var_dump($userData));
