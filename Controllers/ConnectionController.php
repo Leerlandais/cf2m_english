@@ -33,6 +33,16 @@ class ConnectionController extends Abstract\AbstractController
         echo $this->twig->render('public/public.index.html.twig');
     }
 
+    public function connectUser(array $getParams) : void
+    {
+        global $sessionRole, $systemMessage;
+
+        echo $this->twig->render('public/public.login.html.twig', [
+            "systemMessage" => $systemMessage,
+            "csrfToken" => $this->csrfToken,
+        ]);
+    }
+
     public function create($getParams) : void
     {
         global $sessionRole, $systemMessage;
