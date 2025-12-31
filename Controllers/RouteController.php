@@ -1,7 +1,20 @@
 <?php
 namespace Controllers;
 use    model\Manager\RouteManager;
+$stuffToDo = [
+    1 => "set up user creation",
+    2 => "set up admin controls",
+    3 => "set up retrieve password via email",
+    4 => "set up user profile page?"
+];
 
+$adminControls = [
+    1 => "password reset",
+    2 => "user deletion",
+    3 => "course name editing/creation"
+];
+
+die(var_dump($stuffToDo, $adminControls));
 
 $router = new RouteManager($twig, $db);
 
