@@ -2,6 +2,8 @@
 
 namespace model\Manager;
 use model\Abstract\AbstractManager;
+use PDO;
+
 class ConnectionManager extends AbstractManager
 {
     public function logoutUser() : void
@@ -20,8 +22,14 @@ class ConnectionManager extends AbstractManager
 
     public function attemptLogin(array $loginData) : bool
     {
-        $data = $this->changeInputName($loginData);
-        die(var_dump($data));
+        $user = $loginData["user_username"];
+        $stmt = $this->db->prepare("SELECT * FROM english_users WHERE english_user_username = ?");
+        $stmt->bindValue(1, $user);
+        $stmt->execute();
+        $userData = $stmt->fetch();
+        if(!$userData) return false;
+        if(!password_verify($loginData["user_password"], $userData["english_user_password"])) return false;
+        $this->createUserSession($userData);
     }
     public function createUser(array $userData) : void
     {
