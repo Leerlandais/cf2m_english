@@ -43,6 +43,10 @@ class ConnectionManager extends AbstractManager
 
     private function createUserSession(EnglishUserMapping $userData) : void
     {
-        die(var_dump($userData));
+        $_SESSION["userName"] = $userData->getEnglishUserFirstname();
+        $_SESSION["userId"] = $userData->getEnglishUserId();
+        $_SESSION["userCourse"] = $userData->getEnglishUserCourse();
+        $_SESSION["userRoles"] = $userData->getEnglishUserRoles();
+        die(var_dump($_SESSION));
     }
 }

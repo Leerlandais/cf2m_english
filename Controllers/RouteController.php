@@ -14,7 +14,7 @@ $adminControls = [
     3 => "course name editing/creation"
 ];
 
-die(var_dump($stuffToDo, $adminControls));
+// die(var_dump($stuffToDo, $adminControls));
 
 $router = new RouteManager($twig, $db);
 
