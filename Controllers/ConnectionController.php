@@ -31,17 +31,22 @@ class ConnectionController extends Abstract\AbstractController
 
     public function index(): void
     {
-        echo $this->twig->render('public/public.index.html.twig');
+        global $sessionRole, $systemMessage;
+        echo $this->twig->render('public/public.index.html.twig', [
+            "systemMessage" => $systemMessage,
+            "sessionRole" => $sessionRole,
+        ]);
     }
 
     public function connectUser(array $getParams): void
     {
         global $sessionRole, $systemMessage;
         if (isset($_POST["unset:loginUser"])) {
+           //s $this->verifyCsrfToken($_POST['csrf:csrf_token']);
             $preparedData = $this->preparePostData($_POST);
             $attemptLogin = $this->connectionManager->attemptLogin($preparedData);
             if (!$attemptLogin) {
-                $systemMessage = "Incorrect username or password";
+                $_SESSION["systemMessage"] = "Incorrect username or password";
             }
             header("Location: ?route=home");
             exit();
@@ -49,6 +54,7 @@ class ConnectionController extends Abstract\AbstractController
         echo $this->twig->render('public/public.login.html.twig', [
             "systemMessage" => $systemMessage,
             "csrfToken" => $this->csrfToken,
+            "sessionRole" => $sessionRole
         ]);
     }
 

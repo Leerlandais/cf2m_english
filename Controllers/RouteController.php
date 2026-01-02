@@ -28,7 +28,7 @@ $router->registerRoute('404', ErrorController::class, 'error404');
 
 // ADMIN ROUTES
 $router->registerRoute('adminControls', AdminController::class, 'adminControls');
-
+$router->registerRoute('editCourses', AdminController::class, 'editCourses');
 
 
 // Handle request

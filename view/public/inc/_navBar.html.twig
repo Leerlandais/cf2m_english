@@ -1,11 +1,20 @@
 <header class="bg-blue-500">
+    {% block dumpArea %}
+    {{ dump(sessionRole) }}
+    {% endblock %}
     <nav class="container mx-auto p-6">
         <div class="flex items-center justify-between text-white font-bold text-xl">
-            <a href="?route={{ userRole ? "general" : "home" }}">CF2M - ENGLISH</a>
+            <a href="?route={{ sessionRole ? "general" : "home" }}">CF2M - ENGLISH</a>
             <div class="flex items-center gap-x-12">
+                {% if "ROLE_ADMIN" in sessionRole %}
                 <a href="?route=adminControls">Admin</a>
+                {% endif %}
+                {% if sessionRole|length > 1 %}
+                <a href="?route=logout">Logout</a>
+                    {% else %}
                 <a href="?route=login">Sign In</a>
                 <a href="?route=createUser">Sign Up</a>
+                {% endif %}
             </div>
         </div>
     </nav>

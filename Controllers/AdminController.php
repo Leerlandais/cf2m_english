@@ -13,16 +13,18 @@ class AdminController extends Abstract\AbstractController
 
         echo $this->twig->render('private/private.adminControls.html.twig', [
             "systemMessage" => $systemMessage,
+            "sessionRole" => $sessionRole,
             "csrfToken" => $this->csrfToken,
         ]);
     }
     public function editCourses() : void
     {
         global $sessionRole, $systemMessage;
-      //  $this->checkPermissions("ROLE_ADMIN", $sessionRole);
+        $this->checkPermissions("ROLE_ADMIN", $sessionRole);
 
         echo $this->twig->render('private/private.editCourses.html.twig', [
             "systemMessage" => $systemMessage,
+            "sessionRole" => $sessionRole,
             "csrfToken" => $this->csrfToken,
         ]);
     }

@@ -16,7 +16,7 @@ if (isset($_SESSION["systemMessage"])) {
     $systemMessage = "";
 }
 $sessionRole = "";
-if(isset($_SESSION['roles'])) $sessionRole = $_SESSION['roles'];
+if(isset($_SESSION['sessionRole'])) $sessionRole = $_SESSION['sessionRole'];
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Factory\ConnectionFactory;
@@ -42,7 +42,7 @@ $twig->addGlobal("ENV", ENV_MODE);
 //    'debug' => false,
 // ]);
 // // no DebugExtension online
- // var_dump($_SESSION);
+  var_dump($_SESSION);
 try {
     $db = ConnectionFactory::createDb();
 } catch (Exception $e) {

@@ -23,6 +23,7 @@ class ConnectionManager extends AbstractManager
 
     public function attemptLogin(array $loginData) : bool
     {
+       // die(var_dump($loginData));
         $user = $loginData["user_username"];
         $stmt = $this->db->prepare("SELECT * FROM english_users WHERE english_user_username = ?");
         $stmt->bindValue(1, $user);
@@ -43,10 +44,10 @@ class ConnectionManager extends AbstractManager
 
     private function createUserSession(EnglishUserMapping $userData) : void
     {
+
         $_SESSION["userName"] = $userData->getEnglishUserFirstname();
         $_SESSION["userId"] = $userData->getEnglishUserId();
         $_SESSION["userCourse"] = $userData->getEnglishUserCourse();
-        $_SESSION["userRoles"] = $userData->getEnglishUserRoles();
-        die(var_dump($_SESSION));
+        $_SESSION["sessionRole"] = $userData->getEnglishUserRoles();
     }
 }
